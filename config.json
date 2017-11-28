@@ -1,0 +1,7 @@
+{
+    "pipeline": "spacy_sklearn",
+    "path": "./models",
+    "project": "nlu",
+    "data": "./data/train_data.json",
+    "language" : "pt_core_news_sm"
+  }
