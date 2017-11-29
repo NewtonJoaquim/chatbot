@@ -1,0 +1,169 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "intent": "cumprimento",
+        "entities": [],
+        "text": "oi"
+      },
+      {
+        "intent": "cumprimento",
+        "entities": [],
+        "text": "ola"
+      },
+      {
+        "intent": "cumprimento",
+        "entities": [],
+        "text": "eai"
+      },
+      {
+        "intent": "cumprimento",
+        "entities": [],
+        "text": "ei"
+      },
+      {
+        "intent": "cumprimento",
+        "entities": [],
+        "text": "eai cara"
+      },
+      {
+        "intent": "pesquisa_comando",
+        "entities": [],
+        "text": "quero saber sobre os comandos git"
+      },
+      {
+        "intent": "pesquisa_comando",
+        "entities": [],
+        "text": "pode me ajudar com git?"
+      },
+      {
+        "intent": "pesquisa_comando",
+        "entities": [],
+        "text": "me diz algo sobre o git"
+      },
+      {
+        "intent": "pesquisa_comando",
+        "entities": [],
+        "text": "quais s\u00e3o os comandos dispon\u00edveis?"
+      },
+      {
+        "intent": "pesquisa_comando",
+        "entities": [
+          {
+            "start": 16,
+            "end": 20,
+            "value": "pull",
+            "entity": "comando"
+          }
+        ],
+        "text": "me fala sobre o pull"
+      },
+      {
+        "intent": "pesquisa_comando",
+        "entities": [
+          {
+            "start": 16,
+            "end": 20,
+            "value": "push",
+            "entity": "comando"
+          }
+        ],
+        "text": "me fala sobre o push"
+      },
+      {
+        "intent": "pesquisa_comando",
+        "entities": [
+          {
+            "start": 16,
+            "end": 22,
+            "value": "commit",
+            "entity": "comando"
+          }
+        ],
+        "text": "me fala sobre o commit"
+      },
+      {
+        "intent": "pesquisa_comando",
+        "entities": [
+          {
+            "start": 13,
+            "end": 19,
+            "value": "commit",
+            "entity": "comando"
+          }
+        ],
+        "text": "como fa\u00e7o um commit?"
+      },
+      {
+        "intent": "pesquisa_comando",
+        "entities": [
+          {
+            "start": 13,
+            "end": 21,
+            "value": "comandos",
+            "entity": "assunto"
+          },
+          {
+            "start": 22,
+            "end": 32,
+            "value": "principais",
+            "entity": "relevancia"
+          }
+        ],
+        "text": "quais s\u00e3o os comandos principais?"
+      },
+      {
+        "intent": "despedida",
+        "entities": [],
+        "text": "tchau"
+      },
+      {
+        "intent": "despedida",
+        "entities": [],
+        "text": "at\u00e9 a pr\u00f3xima"
+      },
+      {
+        "intent": "despedida",
+        "entities": [],
+        "text": "te vejo em breve"
+      },
+      {
+        "intent": "afirmar",
+        "entities": [],
+        "text": "sim"
+      },
+      {
+        "intent": "afirmar",
+        "entities": [],
+        "text": "isso mesmo"
+      },
+      {
+        "intent": "afirmar",
+        "entities": [],
+        "text": "ok"
+      },
+      {
+        "intent": "afirmar",
+        "entities": [],
+        "text": "claro"
+      },
+      {
+        "intent": "negar",
+        "entities": [],
+        "text": "n\u00e3o"
+      },
+      {
+        "intent": "negar",
+        "entities": [],
+        "text": "errado"
+      },
+      {
+        "intent": "negar",
+        "entities": [],
+        "text": "talvez"
+      }
+    ],
+    "regex_features": [],
+    "entity_synonyms": []
+  }
+}
