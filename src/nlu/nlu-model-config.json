@@ -1,8 +1,8 @@
 {
   "project": "gente",
   "pipeline": "spacy_sklearn",
-  "path": "../models",
-  "data": "./data/data-train.json",
+  "path": "./models",
+  "data": "./data/training_data.json",
   "language": "pt_core_news_sm",
   "cors_origins": ["*"]
 }
