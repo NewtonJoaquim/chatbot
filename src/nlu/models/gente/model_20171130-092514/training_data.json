@@ -50,25 +50,25 @@
         "intent": "perguntar_comando",
         "entities": [
           {
-            "start": 14,
-            "end": 18,
+            "start": 12,
+            "end": 16,
             "value": "pull",
             "entity": "comando"
           }
         ],
-        "text": "me explique o pull"
+        "text": "me explique pull"
       },
       {
         "intent": "perguntar_comando",
         "entities": [
           {
-            "start": 14,
-            "end": 18,
+            "start": 12,
+            "end": 16,
             "value": "push",
             "entity": "comando"
           }
         ],
-        "text": "me explique o push"
+        "text": "me explique push"
       },
       {
         "intent": "perguntar_comando",
@@ -79,61 +79,61 @@
         "intent": "perguntar_comando",
         "entities": [
           {
-            "start": 14,
-            "end": 20,
+            "start": 12,
+            "end": 18,
             "value": "commit",
             "entity": "comando"
           }
         ],
-        "text": "me explique o commit"
+        "text": "me explique commit"
       },
       {
         "intent": "perguntar_comando",
         "entities": [
           {
-            "start": 14,
-            "end": 17,
+            "start": 12,
+            "end": 15,
             "value": "add",
             "entity": "comando"
           }
         ],
-        "text": "me explique o add"
+        "text": "me explique add"
       },
       {
         "intent": "perguntar_comando",
         "entities": [
           {
-            "start": 14,
-            "end": 22,
+            "start": 12,
+            "end": 20,
             "value": "checkout",
             "entity": "comando"
           }
         ],
-        "text": "me explique o checkout"
+        "text": "me explique checkout"
       },
       {
         "intent": "perguntar_comando",
         "entities": [
           {
-            "start": 14,
-            "end": 18,
+            "start": 12,
+            "end": 16,
             "value": "fork",
             "entity": "comando"
           }
         ],
-        "text": "me explique o fork"
+        "text": "me explique fork"
       },
       {
         "intent": "perguntar_comando",
         "entities": [
           {
-            "start": 14,
-            "end": 19,
+            "start": 12,
+            "end": 17,
             "value": "merge",
             "entity": "comando"
           }
         ],
-        "text": "me explique o merge"
+        "text": "me explique merge"
       },
       {
         "intent": "perguntar_comando",
