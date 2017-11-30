@@ -218,6 +218,30 @@
             "entity": "comando"
           }
         ]
+      },
+      {
+        "text": "mostre botao",
+        "intent": "botoes_teste",
+        "entities": [
+          {
+            "start": 7,
+            "end": 12,
+            "value": "botao",
+            "entity": "botao"
+          }
+        ]
+      },
+      {
+        "text": "botao",
+        "intent": "botoes_teste",
+        "entities": [
+          {
+            "start": 0,
+            "end": 5,
+            "value": "botao",
+            "entity": "botao"
+          }
+        ]
       }
     ],
     "regex_features": [],

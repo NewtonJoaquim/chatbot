@@ -6,9 +6,9 @@ let rasa = require('botkit-rasa')({
 
 let controller = Botkit.slackbot({
     debug: true,
+    interactive_replies: true
 });
 
-//controller.middleware.receive.use(rasa.receive);
 controller.middleware.receive.use(function(bot, message, next){
     if(typeof message.text !== "undefined"){
         message.text = message.text.toLowerCase();
@@ -17,7 +17,7 @@ controller.middleware.receive.use(function(bot, message, next){
 });
 
 let bot = controller.spawn({
-    token: 'xoxb-278381929907-a5KbOK4bfiXiNXaSNOclgjrF'
+    token: 'xoxb-278381929907-BhR9rZz047SQw8ficWhOxXJI'
 }).startRTM();
 
 controller.changeEars(function (patterns, message) {
@@ -36,6 +36,44 @@ controller.hears(['cumprimento'], 'direct_message,direct_mention,mention', rasa.
     bot.reply(message, res);
 });
 
+controller.hears(['botoes_teste'],'direct_message,direct_mention,mention',rasa.hears,function(bot,message) {
+    console.log("Entrou aqui");
+    const messageB = {
+        "text": "This is your first interactive message",
+        "attachments": [
+            {
+                "text": "Building buttons is easy right?",
+                "fallback": "Shame... buttons aren't supported in this land",
+                "callback_id": "button_tutorial",
+                "color": "#3AA3E3",
+                "attachment_type": "default",
+                "actions": [
+                    {
+                        "name": "yes",
+                        "text": "yes",
+                        "type": "button",
+                        "value": "yes"
+                    },
+                    {
+                        "name": "no",
+                        "text": "no",
+                        "type": "button",
+                        "value": "no"
+                    },
+                    {
+                        "name": "maybe",
+                        "text": "maybe",
+                        "type": "button",
+                        "value": "maybe",
+                        "style": "danger"
+                    }
+                ]
+            }
+        ]
+    };
+    bot.reply(message, messageB);
+});
+
 controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
     let res = "";
     if(message.entities.length == 0){
@@ -44,10 +82,6 @@ controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention',
     }
     else{
         switch(message.entities[0].value){
-            //case null:
-            //    console.log('Deu null');
-            //    res = "Belezinha, qual o comando bro?";
-            //    break;
             case 'push':
                 console.log('Deu push');
                 res = "push";
@@ -72,3 +106,4 @@ controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention',
     }
     bot.reply(message, res);
 });
+
