@@ -1,53 +1,52 @@
-﻿{
+{
   "rasa_nlu_data": {
     "common_examples": [
       {
-        "text": "ola",
         "intent": "cumprimento",
-        "entities": []
+        "entities": [],
+        "text": "ola"
       },
       {
-        "text": "oi",
         "intent": "cumprimento",
-        "entities": []
+        "entities": [],
+        "text": "oi"
       },
       {
-        "text": "tudo bem?",
         "intent": "cumprimento",
-        "entities": []
+        "entities": [],
+        "text": "tudo bem?"
       },
       {
-        "text": "tudo bom?",
         "intent": "cumprimento",
-        "entities": []
+        "entities": [],
+        "text": "tudo bom?"
       },
       {
-        "text": "e aí",
         "intent": "cumprimento",
-        "entities": []
+        "entities": [],
+        "text": "e a\u00ed"
       },
       {
-        "text": "eae",
         "intent": "cumprimento",
-        "entities": []
+        "entities": [],
+        "text": "eae"
       },
       {
-        "text": "tenho duvida sobre um comando",
         "intent": "perguntar_comando",
-        "entities": []
+        "entities": [],
+        "text": "tenho duvida sobre um comando"
       },
       {
-        "text": "me explique um certo comando",
         "intent": "perguntar_comando",
-        "entities": []
+        "entities": [],
+        "text": "me explique um certo comando"
       },
       {
-        "text": "pode me ajudar com um comando?",
         "intent": "perguntar_comando",
-        "entities": []
+        "entities": [],
+        "text": "pode me ajudar com um comando?"
       },
       {
-        "text": "me explique o pull",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -56,10 +55,10 @@
             "value": "pull",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "me explique o pull"
       },
       {
-        "text": "me explique o push",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -68,15 +67,15 @@
             "value": "push",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "me explique o push"
       },
       {
-        "text": "me fale sobre um comando",
         "intent": "perguntar_comando",
-        "entities": []
+        "entities": [],
+        "text": "me fale sobre um comando"
       },
       {
-        "text": "me explique o commit",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -85,10 +84,10 @@
             "value": "commit",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "me explique o commit"
       },
       {
-        "text": "me explique o add",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -97,10 +96,10 @@
             "value": "add",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "me explique o add"
       },
       {
-        "text": "me explique o checkout",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -109,10 +108,10 @@
             "value": "checkout",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "me explique o checkout"
       },
       {
-        "text": "me explique o fork",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -121,10 +120,10 @@
             "value": "fork",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "me explique o fork"
       },
       {
-        "text": "me explique o merge",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -133,10 +132,10 @@
             "value": "merge",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "me explique o merge"
       },
       {
-        "text": "pull",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -145,10 +144,10 @@
             "value": "pull",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "pull"
       },
       {
-        "text": "push",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -157,10 +156,10 @@
             "value": "push",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "push"
       },
       {
-        "text": "commit",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -169,10 +168,10 @@
             "value": "commit",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "commit"
       },
       {
-        "text": "add",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -181,10 +180,10 @@
             "value": "add",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "add"
       },
       {
-        "text": "checkout",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -193,10 +192,10 @@
             "value": "checkout",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "checkout"
       },
       {
-        "text": "fork",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -205,10 +204,10 @@
             "value": "fork",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "fork"
       },
       {
-        "text": "merge",
         "intent": "perguntar_comando",
         "entities": [
           {
@@ -217,7 +216,8 @@
             "value": "merge",
             "entity": "comando"
           }
-        ]
+        ],
+        "text": "merge"
       }
     ],
     "regex_features": [],

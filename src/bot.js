@@ -8,10 +8,16 @@ let controller = Botkit.slackbot({
     debug: true,
 });
 
-controller.middleware.receive.use(rasa.receive);
+//controller.middleware.receive.use(rasa.receive);
+controller.middleware.receive.use(function(bot, message, next){
+    if(typeof message.text !== "undefined"){
+        message.text = message.text.toLowerCase();
+    }
+    rasa.receive(bot, message, next);
+});
 
 let bot = controller.spawn({
-    token: 'xoxb-278381929907-aju4F5b2iAtgijkqt3XsBBFT'
+    token: 'xoxb-278381929907-r9lDLGAJeHgThqUNLK56S6z0'
 }).startRTM();
 
 controller.changeEars(function (patterns, message) {
@@ -30,8 +36,33 @@ controller.hears(['cumprimento'], 'direct_message,direct_mention,mention', rasa.
     bot.reply(message, res);
 });
 
-controller.hears(['pesquisa_comando'], 'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
-    let res = "Belezinha, qual o comando bro?";
+controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
+    let res = "";
+    switch(message.entities[0].value){
+        case null:
+            console.log('Deu null');
+            res = "Belezinha, qual o comando bro?";
+            break;
+        case 'push':
+            console.log('Deu push');
+            res = "push";
+            break;
+        case 'pull':
+            console.log('Deu pull');
+            res = "pull";
+            break;
+        case 'commit':
+            console.log('Deu commit');
+            res = "commit";
+            break;
+        case 'merge':
+            console.log('Deu merge');
+            res = "merge";
+            break;
+        case 'checkout':
+            console.log('Deu checkout');
+            res = "checkout";
+            break;
+    }
     bot.reply(message, res);
 });
-
