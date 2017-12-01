@@ -36,6 +36,8 @@ let bot = controller.spawn({
     token: process.env.token
 }).startRTM();
 
+bot.configureIncomingWebhook({url:"https://hooks.slack.com/services/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"});
+
 controller.changeEars(function (patterns, message) {
     return rasa.hears(patterns, message);
   });
@@ -130,3 +132,6 @@ controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention',
     bot.reply(message, res);
 });
 
+controller.on('button_clicked', function(bot, message){
+    bot.reply(message, "ok!");
+})
