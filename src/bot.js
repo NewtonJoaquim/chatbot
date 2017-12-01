@@ -17,12 +17,18 @@ controller.middleware.receive.use(function(bot, message, next){
 });
 
 let bot = controller.spawn({
-    token: 'xoxb-278381929907-BhR9rZz047SQw8ficWhOxXJI'
+    token: 'xoxb-278381929907-uFVmROp7QkRiAglxg3Ai5x69'
 }).startRTM();
 
 controller.changeEars(function (patterns, message) {
     return rasa.hears(patterns, message);
   });
+
+
+controller.setupWebserver(3000, function (err, webserver) {
+// Configure a route to receive webhooks from slack
+    controller.createWebhookEndpoints(webserver);
+});
 
 controller.hears(['cumprimento'], 'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
     let res = "Diz ai chapa, quer saber o que?";
