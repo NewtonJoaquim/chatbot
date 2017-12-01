@@ -1,3 +1,12 @@
+let env = require('node-env-file');
+
+env(__dirname + '/.env');
+
+/*if (!process.env.token) {
+  usage_tip();
+  // process.exit(1);
+}*/
+
 let Botkit = require('botkit');
 let rasa = require('botkit-rasa')({
     rasa_uri: 'http://localhost:5000',
@@ -17,7 +26,7 @@ controller.middleware.receive.use(function(bot, message, next){
 });
 
 let bot = controller.spawn({
-    token: 'xoxb-278381929907-uFVmROp7QkRiAglxg3Ai5x69'
+    token: process.env.token
 }).startRTM();
 
 controller.changeEars(function (patterns, message) {
