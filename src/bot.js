@@ -14,9 +14,16 @@ let rasa = require('botkit-rasa')({
 });
 
 let controller = Botkit.slackbot({
+    clientId: process.env.clientID,
+    clientSecret: process.env.clientSecret,
+    scopes: ['bot'],
+    redirectUri: 'http://localhost:3000/oauth',
+    json_file_store: __dirname + '/.data/db/',
     debug: true,
     interactive_replies: true
 });
+
+controller.startTicking();
 
 controller.middleware.receive.use(function(bot, message, next){
     if(typeof message.text !== "undefined"){
@@ -37,6 +44,7 @@ controller.changeEars(function (patterns, message) {
 controller.setupWebserver(3000, function (err, webserver) {
 // Configure a route to receive webhooks from slack
     controller.createWebhookEndpoints(webserver);
+    controller.createOauthEndpoints(webserver);
 });
 
 controller.hears(['cumprimento'], 'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
