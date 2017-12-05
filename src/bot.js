@@ -17,7 +17,7 @@ let controller = Botkit.slackbot({
     clientId: process.env.clientID,
     clientSecret: process.env.clientSecret,
     scopes: ['bot'],
-    redirectUri: 'https://2d855797.ngrok.io/oauth',
+    redirectUri: process.env.redirectUri,
     json_file_store: __dirname + '/.data/db/',
     debug: true,
     interactive_replies: true
@@ -36,11 +36,11 @@ let bot = controller.spawn({
     token: process.env.token
 }).startRTM();
 
-bot.configureIncomingWebhook({url:"https://hooks.slack.com/services/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"});
+bot.configureIncomingWebhook({url:process.env.incomingWebhook});
 
 controller.changeEars(function (patterns, message) {
     return rasa.hears(patterns, message);
-  });
+});
 
 
 controller.setupWebserver(3000, function (err, webserver) {
@@ -49,67 +49,8 @@ controller.setupWebserver(3000, function (err, webserver) {
     controller.createOauthEndpoints(webserver);
 });
 
-
-/*controller.hears('[botoes_teste]', 'direct_message', rasa.hears, function(bot,message){
-    
-    bot.startConversation(message, function(err, convo) {
-        
-            convo.ask({
-                attachments:[
-                    {
-                        title: 'Do you want to proceed?',
-                        callback_id: '123',
-                        attachment_type: 'default',
-                        actions: [
-                            {
-                                "name":"yes",
-                                "text": "Yes",
-                                "value": "yes",
-                                "type": "button",
-                            },
-                            {
-                                "name":"no",
-                                "text": "No",
-                                "value": "no",
-                                "type": "button",
-                            }
-                        ]
-                    }
-                ]
-            },[
-                {
-                    pattern: "yes",
-                    callback: function(reply, convo) {
-                        convo.say('FABULOUS!');
-                        convo.next();
-                        // do something awesome here.
-                    }
-                },
-                {
-                    pattern: "no",
-                    callback: function(reply, convo) {
-                        convo.say('Too bad');
-                        convo.next();
-                    }
-                },
-                {
-                    default: true,
-                    callback: function(reply, convo) {
-                        // do nothing
-                    }
-                }
-            ]);
-        });
-    });*/
-
 controller.hears(['cumprimento'], 'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
     let res = "Diz ai chapa, quer saber o que?";
-    console.log('Intent:', message.intent);
-    bot.reply(message, res);
-});
-
-controller.hears(['cumprimento'], 'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
-    let res = "Olá confrade, como posso ajudá-lo?";
     console.log('Intent:', message.intent);
     bot.reply(message, res);
 });
