@@ -17,7 +17,7 @@ let controller = Botkit.slackbot({
     clientId: process.env.clientID,
     clientSecret: process.env.clientSecret,
     scopes: ['bot'],
-    redirectUri: 'http://localhost:3000/oauth',
+    redirectUri: 'https://2d855797.ngrok.io/oauth',
     json_file_store: __dirname + '/.data/db/',
     debug: true,
     interactive_replies: true
@@ -49,6 +49,59 @@ controller.setupWebserver(3000, function (err, webserver) {
     controller.createOauthEndpoints(webserver);
 });
 
+
+/*controller.hears('[botoes_teste]', 'direct_message', rasa.hears, function(bot,message){
+    
+    bot.startConversation(message, function(err, convo) {
+        
+            convo.ask({
+                attachments:[
+                    {
+                        title: 'Do you want to proceed?',
+                        callback_id: '123',
+                        attachment_type: 'default',
+                        actions: [
+                            {
+                                "name":"yes",
+                                "text": "Yes",
+                                "value": "yes",
+                                "type": "button",
+                            },
+                            {
+                                "name":"no",
+                                "text": "No",
+                                "value": "no",
+                                "type": "button",
+                            }
+                        ]
+                    }
+                ]
+            },[
+                {
+                    pattern: "yes",
+                    callback: function(reply, convo) {
+                        convo.say('FABULOUS!');
+                        convo.next();
+                        // do something awesome here.
+                    }
+                },
+                {
+                    pattern: "no",
+                    callback: function(reply, convo) {
+                        convo.say('Too bad');
+                        convo.next();
+                    }
+                },
+                {
+                    default: true,
+                    callback: function(reply, convo) {
+                        // do nothing
+                    }
+                }
+            ]);
+        });
+    });*/
+
 controller.hears(['cumprimento'], 'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
     let res = "Diz ai chapa, quer saber o que?";
     console.log('Intent:', message.intent);
@@ -74,19 +127,19 @@ controller.hears(['botoes_teste'],'direct_message,direct_mention,mention',rasa.h
                 "attachment_type": "default",
                 "actions": [
                     {
-                        "name": "yes",
+                        "name": "button_click_yes",
                         "text": "yes",
                         "type": "button",
                         "value": "yes"
                     },
                     {
-                        "name": "no",
+                        "name": "button_click_no",
                         "text": "no",
                         "type": "button",
                         "value": "no"
                     },
                     {
-                        "name": "maybe",
+                        "name": "button_click_maybe",
                         "text": "maybe",
                         "type": "button",
                         "value": "maybe",
@@ -132,6 +185,9 @@ controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention',
     bot.reply(message, res);
 });
 
-controller.on('button_clicked', function(bot, message){
-    bot.reply(message, "ok!");
+controller.on('interactive_message_callback', function(bot, message){
+    bot.reply(message, "Interagindo com o botao " + message.callback_id);
+    bot.reply(message, "voce clicou na opcao: " + message.actions[0].name)
+   // bot.reply(message, message.value);
 })
+
