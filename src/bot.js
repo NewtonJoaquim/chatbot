@@ -36,7 +36,7 @@ let bot = controller.spawn({
     token: process.env.token
 }).startRTM();
 
-bot.configureIncomingWebhook({url:process.env.incomingWebhook});
+//bot.configureIncomingWebhook({url:process.env.incomingWebhook});
 
 controller.changeEars(function (patterns, message) {
     return rasa.hears(patterns, message);
@@ -49,9 +49,17 @@ controller.setupWebserver(3000, function (err, webserver) {
     controller.createOauthEndpoints(webserver);
 });
 
-controller.hears(['cumprimento'], 'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
+//auxiliar variable to control duplicate replies
+let alreadySent = 1;
+
+controller.hears(['cumprimento'],'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
     let res = "Diz ai chapa, quer saber o que?";
-    console.log('Intent:', message.intent);
+    console.log(bot.identity);
+    if(alreadySent == 0){
+        alreadySent = 1;
+        return;
+    }
+    alreadySent = 0;
     bot.reply(message, res);
 });
 
@@ -90,6 +98,11 @@ controller.hears(['botoes_teste'],'direct_message,direct_mention,mention',rasa.h
             }
         ]
     };
+    if(alreadySent == 0){
+        alreadySent = 1;
+        return;
+    }
+    alreadySent = 0;
     bot.reply(message, messageB);
 });
 
@@ -123,6 +136,11 @@ controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention',
                 break;
         }
     }
+    if(alreadySent == 0){
+        alreadySent = 1;
+        return;
+    }
+    alreadySent = 0;
     bot.reply(message, res);
 });
 
