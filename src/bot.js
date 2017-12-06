@@ -60,7 +60,7 @@ controller.hears(['cumprimento'],'direct_message,direct_mention,mention', rasa.h
         return;
     }
     alreadySent = 0;
-    bot.reply(message, res);
+    setTimeout(function(){bot.reply(message, res)}, 600);
 });
 
 controller.hears(['botoes_teste'],'direct_message,direct_mention,mention',rasa.hears,function(bot,message) {
@@ -116,23 +116,23 @@ controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention',
         switch(message.entities[0].value){
             case 'push':
                 console.log('Deu push');
-                res = "push";
+                res = "O comando push serve para levar alterações do seu repositório local para o repositório remoto";
                 break;
             case 'pull':
                 console.log('Deu pull');
-                res = "pull";
+                res = "O comando pull serve para trazer alterações do respositório remoto para o seu repositório local.";
                 break;
             case 'commit':
-                console.log('Deu commit');
-                res = "commit";
+                console.log('commit');
+                res = "O comando commit serve para registrar uma nova versão do seu codigo.";
                 break;
             case 'merge':
-                console.log('Deu merge');
-                res = "merge";
+                console.log('merge');
+                res = "o comando merge serve para atualizar o codigo de uma branch com as atualizações de uma outra branch.";
                 break;
             case 'checkout':
                 console.log('Deu checkout');
-                res = "checkout";
+                res = "O comando checkout serve para ir pra outra branch";
                 break;
         }
     }
@@ -141,7 +141,8 @@ controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention',
         return;
     }
     alreadySent = 0;
-    bot.reply(message, res);
+    setTimeout(function(){bot.reply(message, res)}, 600);
+    setTimeout(function(){bot.reply(message, feedback_button())}, 2000);
 });
 
 controller.on('interactive_message_callback', function(bot, message){
@@ -150,3 +151,31 @@ controller.on('interactive_message_callback', function(bot, message){
    // bot.reply(message, message.value);
 })
 
+function feedback_button(){
+    const messageB = {
+        "attachments": [
+            {
+                "text": "Essa mensagem foi útil?",
+                "callback_id": "button_feedback",
+                "color": "#3AA3E3",
+                "attachment_type": "default",
+                "actions": [
+                    {
+                        "name": "button_click_yes",
+                        "text": "sim",
+                        "type": "button",
+                        "value": "yes"
+                    },
+                    {
+                        "name": "button_click_no",
+                        "text": "não",
+                        "type": "button",
+                        "value": "no"
+                    }
+                ]
+            }
+        ]
+    };
+
+    return messageB;
+}
