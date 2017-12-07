@@ -1,4 +1,5 @@
 let env = require('node-env-file');
+let filessystem = require('fs');
 
 env(__dirname + '/.env');
 
@@ -106,7 +107,10 @@ controller.hears(['botoes_teste'],'direct_message,direct_mention,mention',rasa.h
     bot.reply(message, messageB);
 });
 
+let command_message = "";
+
 controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
+    console.log(message);
     let res = "";
     if(message.entities.length == 0){
         console.log('Deu null');
@@ -141,14 +145,60 @@ controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention',
         return;
     }
     alreadySent = 0;
+    if(message.intent.confidence <= 0.7){
+        setTimeout(function(){bot.reply(message, "não entendi oque você falou")}, 600);
+        return;
+    }
     setTimeout(function(){bot.reply(message, res)}, 600);
     setTimeout(function(){bot.reply(message, feedback_button())}, 2000);
+    command_message = message;
 });
 
 controller.on('interactive_message_callback', function(bot, message){
-    bot.reply(message, "Interagindo com o botao " + message.callback_id);
-    bot.reply(message, "voce clicou na opcao: " + message.actions[0].name)
-   // bot.reply(message, message.value);
+    switch(message.callback_id){
+        case "button_feedback":
+            switch(message.actions[0].name){
+                case "button_click_no" :
+                    bot.reply(message, response1_feedback());
+                    break;
+                case "button_click_yes" :
+                    bot.reply(message, "Obrigado pelo feedback!");
+                    break;        
+            }
+            break;
+        case "button_response_feedback":
+            let dir = __dirname + '/feedback/' ;
+            
+            if (!filessystem.existsSync(dir)){
+                filessystem.mkdirSync(dir);
+            }
+
+            let feedback = '';
+            switch(message.actions[0].name){
+                case "insuf_info" :
+                    bot.reply(message, "Obrigado pelo feedback!");
+                    feedback = "informação insuficiente";
+                    break;
+                case "wrong_answer" :
+                    bot.startConversation(message, function(err, convo){
+                        convo.addQuestion("Qual comando você esperava?", function(response, convo){
+                            convo.say("sua resposta (" + response.text + ") sera armazenada para analise.");
+                            convo.next();
+                        },{}, 'default');
+                        feedback = response.text;
+                    })
+                    break;
+                case "other":
+                    bot.startConversation(message, function(err, convo){
+                        convo.addQuestion("Fale-me do seu problema", function(response, convo){
+                            convo.say("sua resposta (" + response.text + ") sera armazenada para analise.");
+                            convo.next();
+                        }, {}, 'default');
+                        feedback = response.text;
+                    })
+                    break;
+            }
+    }
 })
 
 function feedback_button(){
@@ -178,4 +228,38 @@ function feedback_button(){
     };
 
     return messageB;
+}
+
+function response1_feedback(){
+    let responseB = {
+        "attachments": [
+            {
+                "text": "Pode nos informar o problema?",
+                "callback_id": "button_response_feedback",
+                "color": "#3AA3E3",
+                "attachment_type": "default",
+                "actions": [
+                    {
+                        "name": "insuf_info",
+                        "text": "Informação insuficiente",
+                        "type": "button",
+                        "value": "insuf"
+                    },
+                    {
+                        "name": "wrong_answer",
+                        "text": "Não era a resposta que eu queria",
+                        "type": "button",
+                        "value": "wrong"
+                    },
+                    {
+                        "name":"other",
+                        "text":"Outro",
+                        "type":"button",
+                        "value":"other",
+                    }
+                ]
+            }
+        ]
+    }
+    return responseB;
 }
