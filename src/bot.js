@@ -198,7 +198,7 @@ controller.on('interactive_message_callback', function(bot, message){
                 case "wrong_answer" :
                     log_text = "texto: " + command_message.text + os.EOL;
                     problem = "Resposta inesperada" + os.EOL;
-                    bot.startConversation(message, function(err, convo){
+                    bot.startPrivateConversation(message, function(err, convo){
                         convo.addQuestion("Qual comando você esperava?", function(response, convo){
                             feedback += "Resposta esperada: " + response.text;
                             filessystem.writeFile(__dirname + "/feedback/negative/" + command_message.ts+".txt",log_text + problem + feedback,function(err){
@@ -213,7 +213,7 @@ controller.on('interactive_message_callback', function(bot, message){
                 case "other":
                     log_text = "texto: " + command_message.text + os.EOL;
                     problem = "Outro" + os.EOL;
-                    bot.startConversation(message, function(err, convo){
+                    bot.startPrivateConversation(message, function(err, convo){
                         convo.addQuestion("Fale-me do seu problema", function(response, convo){
                             feedback += "Problema: " + response.text;
                             filessystem.writeFile(__dirname + "/feedback/negative/" + command_message.ts+".txt",log_text + problem + feedback,function(err){
