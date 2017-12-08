@@ -1,5 +1,6 @@
 let env = require('node-env-file');
 let filessystem = require('fs');
+let os = require('os');
 
 env(__dirname + '/.env');
 
@@ -107,7 +108,7 @@ controller.hears(['botoes_teste'],'direct_message,direct_mention,mention',rasa.h
     bot.reply(message, messageB);
 });
 
-let command_message = "";
+let command_message = null;
 
 controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention', rasa.hears, function(bot, message) {
     console.log(message);
@@ -155,6 +156,16 @@ controller.hears(['perguntar_comando'], 'direct_message,direct_mention,mention',
 });
 
 controller.on('interactive_message_callback', function(bot, message){
+    let dir = __dirname + '/feedback/' ;
+    let subdir_positive = __dirname + '/feedback/positive/';
+    let subdir_negative = __dirname + '/feedback/negative/';
+
+    if (!filessystem.existsSync(dir)){
+        filessystem.mkdirSync(dir);
+        filessystem.mkdirSync(subdir_positive);
+        filessystem.mkdirSync(subdir_negative);
+    }
+    
     switch(message.callback_id){
         case "button_feedback":
             switch(message.actions[0].name){
@@ -163,38 +174,55 @@ controller.on('interactive_message_callback', function(bot, message){
                     break;
                 case "button_click_yes" :
                     bot.reply(message, "Obrigado pelo feedback!");
+
+                    let log_text = "texto: " + command_message.text;
+
+                    filessystem.writeFile(__dirname + "/feedback/positive/" + command_message.ts+".txt" , log_text,function(err){
+                        if(err) throw err;
+                        console.log('success');
+                    })
                     break;        
             }
             break;
         case "button_response_feedback":
-            let dir = __dirname + '/feedback/' ;
             
-            if (!filessystem.existsSync(dir)){
-                filessystem.mkdirSync(dir);
-            }
-
+            let problem, log_text = null;
             let feedback = '';
             switch(message.actions[0].name){
                 case "insuf_info" :
                     bot.reply(message, "Obrigado pelo feedback!");
-                    feedback = "informação insuficiente";
+
+                    log_text = "texto: " + command_message.text + os.EOL;
+                    feedback += "informação insuficiente";
                     break;
                 case "wrong_answer" :
+                    log_text = "texto: " + command_message.text + os.EOL;
+                    problem = "Resposta inesperada" + os.EOL;
                     bot.startConversation(message, function(err, convo){
                         convo.addQuestion("Qual comando você esperava?", function(response, convo){
+                            feedback += "Resposta esperada: " + response.text;
+                            filessystem.writeFile(__dirname + "/feedback/negative/" + command_message.ts+".txt",log_text + problem + feedback,function(err){
+                                if(err) throw err;
+                                console.log('success');
+                            })
                             convo.say("sua resposta (" + response.text + ") sera armazenada para analise.");
                             convo.next();
                         },{}, 'default');
-                        feedback = response.text;
                     })
                     break;
                 case "other":
+                    log_text = "texto: " + command_message.text + os.EOL;
+                    problem = "Outro" + os.EOL;
                     bot.startConversation(message, function(err, convo){
                         convo.addQuestion("Fale-me do seu problema", function(response, convo){
+                            feedback += "Problema: " + response.text;
+                            filessystem.writeFile(__dirname + "/feedback/negative/" + command_message.ts+".txt",log_text + problem + feedback,function(err){
+                                if(err) throw err;
+                                console.log('success');
+                            })
                             convo.say("sua resposta (" + response.text + ") sera armazenada para analise.");
                             convo.next();
                         }, {}, 'default');
-                        feedback = response.text;
                     })
                     break;
             }
